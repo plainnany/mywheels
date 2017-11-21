@@ -5,10 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>img-picker</title>
+    <link rel="stylesheet" href="../css/img-picker.css">
+    <link rel="stylesheet" href="../css/reset.css">
 </head>
 <body>
-    <div class="inputForm">
-        <input type="file">
+    <div class="page">
+        <form class="form">
+            <img src="../image/1.jpg" alt="">
+        </form>
     </div>
+    <script src="../js/dom.js"></script>
+    <script src="../js/img-picker.js"></script>
+    <script>
+        new ImagePicker({
+            element: document.querySelector('.form'),
+            upload: {
+                url: '',
+                method: '',
+                inputName: ''
+            },
+            parseResopnse: null,
+            fallbackImage: ''
+        })
+    </script>
 </body>
 </html>
