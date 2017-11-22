@@ -7,6 +7,7 @@ body{
     margin: 10vh auto;
     background: #ccc;
     padding-top: 30px;
+    border-radius: 4px;
 
 }
 .page .form{
@@ -14,14 +15,10 @@ body{
     width: 100px;
     height: 100px;
     margin: 0 auto;
-    background: red;
     border-radius: 50%;
     overflow: hidden;
 }
-
-.page .form:hover::after{
-    content: '编辑';
-    background: rgba(0,0,0,.3);
+.page .form::after{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,14 +28,22 @@ body{
     top: 0;
     left: 0;
     color:#fff;
-    cursor: pointer;
-    
+    cursor: pointer;  
+}
+.page .form:hover::after{
+    content: '点击上传';
+    background: rgba(0,0,0,.3);
+     
 } 
+.page .form.willUploading::after{
+    content: '处理中';
+}
+.page .form.uploading::after{
+    content:'上传中'
+}
 .page .form img{
     width: 100%;
-    border-radius: 50%;
-    
-    
+    border-radius: 50%;   
 }
 .page .form input[type=file]{
     position: absolute;
