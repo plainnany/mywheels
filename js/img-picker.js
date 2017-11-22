@@ -39,35 +39,86 @@ class ImagePicker{
         this.domRefs.fileInput.addEventListener('change',e => {
             
             let formData = new FormData()
-            let {upload} = this.options
+            let { upload } = this.options
+
             formData.append(upload.inputName, e.target.files[0])
+            this.willUpload(formData)
             this.upload(formData)
-            console.log('发生变动了')
+            console.log('文件发生变动了',this.domRefs.fileInput.value)
         })
         
         
         
     }
-    willUpload(){
+    willUpload(formData){
         this.options.element.classList.add('willUploading')
         this.domRefs.fileInput.disabled = true
     }
     upload(formData){
-        let {upload} = this.options
+        let { upload,parseResponse } = this.options
         http(upload.method, upload.url, formData).then(
             response => {
-                
+                //console.log(typeof response)
+                let path = parseResponse(response)
+
+                this.didUpload()
+                this.willDownload()
+                prefecth(path).then(()=>{
+                        this.didDownload(path)
+                    },
+                    () => {
+                        this.failDownload()
+                    }
+                )
             },
             () => this.failUpload(formData)
         )
     }
     didUpload(){
-        
+        this.options.element.classList.remove('willUploading')
+        this.domRefs.fileInput.disabled = false
     }
     failUpload(){
+        this.options.element.classList.remove('uploading')
+        this.options.element.classList.add('failUploading')
+        this.domRefs.fileInput.disabled = false
+        this.domRefs.fileInput.value = ''
+    }
+
+    willDownload(){
+        this.options.element.classList.add('uploading')
         
     }
+    didDownload(paths){
+        this.domRefs.img.src = paths
+        this.options.element.classList.remove('uploading')
+        this.domRefs.fileInput.disabled = false
+        
+    }
+    failDownload(){
+        let { fallbackImage } = this.options 
+        this.options.element.classList.remove('uploading')
+        this.domRefs.fileInput.disabled = false
+        if(fallbackImage){
+            this.domRefs.img.src = fallbackImage
+        }
+        
+    }
+
+
+
 } 
+
+function prefecth(paths){
+    return new Promise((resolve,reject)=>{
+        let image = new Image()
+        image.onload = resolve
+        image.onerror = reject
+        image.src = paths
+    })
+    
+
+}
 
 function http(method,url,data){
     return new Promise((resolve,reject) => {
@@ -79,7 +130,8 @@ function http(method,url,data){
         }
         xhr.onerror = () => {
             reject(xhr)
-            console.log('请求失败')
+            console.log('请求失败'+xhr.responseText)
+            
         }
         xhr.send(data)
     })

@@ -20,12 +20,15 @@
         new ImagePicker({
             element: document.querySelector('.form'),
             upload: {
-                url: 'https://plainnany.github.io/mywheels/',
+                url: 'https://frankfang.com/image-server/upload',
                 method: 'PUT',
-                inputName: ''
+                inputName: 'file'
             },
-            parseResopnse: null,
-            fallbackImage: ''
+            parseResopnse: (resopnse) => {
+                let response = JSON.parse(response)
+                return `https://frankfang.com/image-server/upload/${response.key}`
+            },
+            fallbackImage: '../image/1.jpg'
         })
     </script>
 </body>

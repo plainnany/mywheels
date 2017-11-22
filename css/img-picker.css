@@ -41,6 +41,9 @@ body{
 .page .form.uploading::after{
     content:'上传中'
 }
+.page .form.failUploading::after{
+    content: '上传失败'
+}
 .page .form img{
     width: 100%;
     border-radius: 50%;   
