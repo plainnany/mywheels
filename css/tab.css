@@ -1,0 +1,40 @@
+body{
+    background: #fafafa;
+}
+.page{
+    width: 600px;
+    margin: 20px auto;
+}
+.tab{
+    border: 1px solid #ccc;
+}
+.tab ul:first-child{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.tab ul:first-child li{
+    flex-grow: 1;
+    line-height: 40px;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    
+}
+.tab ul:first-child li.active{
+    background: #ccc;
+}
+.tab ul:first-child li:first-child{
+    border-right: 1px solid #ccc;
+}
+.tab ul:nth-child(2){
+    height: 300px;
+    border-top: 1px solid #ccc;
+    overflow: hidden;
+}
+.tab ul:nth-child(2) li{
+    display: none;
+}
+.tab ul:nth-child(2) li.active{
+    display: block
+}
