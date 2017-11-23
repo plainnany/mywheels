@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,28 +9,32 @@
     <link rel="stylesheet" href="../css/img-picker.css">
     <link rel="stylesheet" href="../css/reset.css">
 </head>
+
 <body>
     <div class="page">
         <form class="form">
             <img src="../image/1.jpg" alt="">
+            
         </form>
     </div>
     <script src="../js/dom.js"></script>
     <script src="../js/img-picker.js"></script>
+    <!-- <script src="//cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script> -->
     <script>
         new ImagePicker({
             element: document.querySelector('.form'),
-            upload: {
-                url: 'https://frankfang.com/image-server/upload',
+            upload:{
+                url: 'xxx',
                 method: 'PUT',
-                inputName: 'file'
+                fileName: 'file'
             },
-            parseResopnse: (resopnse) => {
+            parseResponse: (response)=>{
                 let response = JSON.parse(response)
-                return `https://frankfang.com/image-server/upload/${response.key}`
+                return `xxx/${response.key}`
             },
             fallbackImage: '../image/1.jpg'
         })
     </script>
 </body>
+
 </html>
