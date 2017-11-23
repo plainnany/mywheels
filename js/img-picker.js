@@ -27,7 +27,7 @@ class ImagePicker{
     checkOptions(){
         let { element, upload:{ url, method, fileName } } = this.options
         if(!element || !url || method || !fileName){
-            //throw new Error('some options is required')
+            throw new Error('some options is required')
         }
     }
     initHtml(){
