@@ -8,7 +8,6 @@ class Tab{
         }
         this.options = Object.assign({},defaultOptions,options)
         this.checkOptions().bindEvents().setDefaultTab()
-        
     }
     checkOptions(){
        if(!this.options.element){
