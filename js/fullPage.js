@@ -9,19 +9,21 @@ class FullPage{
         this.options = Object.assign({},defaultOptions,options)
         this.currentIndex = 0
         this.animate = false
-        this.initHtml()
-        this.bindEvents()
+        this.checkOptions().initHtml().bindEvents()
+        
     }
     initHtml(){
         dom.every(this.options.element.children,e => {
             e.style.transition = `ease ${this.options.duration}`
         })
+        return this
 
     }
     checkOptions(){
         if(!this.options.element){
             throw new Error('element is required')
         }
+        return this
     }
     bindEvents(){
         this.options.element.addEventListener('wheel',e => {
@@ -35,6 +37,7 @@ class FullPage{
             )
             
         })
+        return this
     }
     gotoNextSection(targetIndex){
         // this.animate = true
