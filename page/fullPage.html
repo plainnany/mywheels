@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <style>
+        .page{
+            font-size: 80px;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .page > section{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .page > section:nth-child(1){
+            background: greenyellow;
+        }
+        .page > section:nth-child(2){
+            background: blueviolet
+        }
+        .page > section:nth-child(3){
+            background: orange
+        }
+        .page > section:nth-child(4){
+            background: hotpink;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <section>1</section>
+        <section>2</section>
+        <section>3</section>
+        <section>4</section>
+    </div>
+    <script src="../js/fullPage.js"></script>
+    <script>
+        new FullPage({
+            element: document.querySelector('.page'),
+            duration: '1s'
+        })
+    </script>
+
+</body>
+</html>
