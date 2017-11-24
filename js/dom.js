@@ -47,6 +47,12 @@ var dom = {
             }
         }
         return -1
+    },
+    every: function(nodeList,fn){
+        for(let i=0;i<nodeList.length;i++){
+            fn.call(null,nodeList[i])
+        }
+        return nodeList
     }
 
 }

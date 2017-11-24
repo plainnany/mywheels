@@ -13,10 +13,9 @@ class FullPage{
         this.bindEvents()
     }
     initHtml(){
-        let sections = this.options.element.children
-        for(let i=0;i<sections.length;i++){
-            sections[i].style.transition = `ease ${this.options.duration}`
-        }
+        dom.every(this.options.element.children,e => {
+            e.style.transition = `ease ${this.options.duration}`
+        })
 
     }
     checkOptions(){
@@ -26,29 +25,36 @@ class FullPage{
     }
     bindEvents(){
         this.options.element.addEventListener('wheel',e => {
-            //this.animate = false
-            
             let index = e.deltaY > 0 ? 1 : -1
-            this.currentIndex = this.currentIndex + index
-            if(this.currentIndex < 0){
-                this.currentIndex = 0
-            }
-            if( this.currentIndex >= this.options.element.children.length){
-                this.currentIndex = this.options.element.children.length-1
-            }
-            
-            console.log(this.currentIndex)
-            this.gotoNextSection(this.currentIndex)
+            let targetIndex = this.currentIndex + index
+            if(this.animate){return }
+            this.gotoNextSection(targetIndex)  // 
             
         })
     }
-    gotoNextSection(index){
-       // this.animate = true
+    gotoNextSection(targetIndex){
+        this.animate = true
+        this.currentIndex = targetIndex
         let sections = this.options.element.children
-        for(let i=0;i<sections.length;i++){
-            sections[i].style.transform = `translateY(-${index}00%)`
+        let _this = this
+
+        if(this.currentIndex < 0){
+            this.currentIndex = 0
+            this.animate = false
         }
-        
+        if(this.currentIndex >= sections.length){
+            this.currentIndex = sections.length - 1
+            this.animate = false
+        } 
+
+        sections[this.currentIndex].addEventListener('transitionend',function callback(){
+            this.removeEventListener('transitionend',callback)
+            _this.animate = false
+        })
+
+        dom.every(sections, e => {
+            e.style.transform = `translateY(-${this.currentIndex}00%)`
+        })
     }
 
 }
