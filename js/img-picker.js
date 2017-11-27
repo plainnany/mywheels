@@ -20,15 +20,14 @@ class ImagePicker{
         this.domRefs = {
             img: this.options.element.querySelector('img')
         }
-        this.checkOptions()
-        this.initHtml()
-        this.bindEvent()
+        this.checkOptions().initHtml().bindEvent()
     }
     checkOptions(){
         let { element, upload:{ url, method, fileName } } = this.options
         if(!element || !url || method || !fileName){
             throw new Error('some options is required')
         }
+        return this
     }
     initHtml(){
         let {element} = this.options
@@ -36,6 +35,7 @@ class ImagePicker{
         template.innerHTML = '<input type="file" name="file">'
         let fileInput = (this.domRefs.fileInput = template.content.firstChild)
         element.appendChild(fileInput)
+        return this
     }
     bindEvent(){
         this.domRefs.fileInput.addEventListener('change',e => {
@@ -47,6 +47,7 @@ class ImagePicker{
             this.willUpload()
             this.upload(formData)
         })
+        return this
         
     }
     willUpload(){
