@@ -1,4 +1,4 @@
-class Calender{
+class Calendar{
     constructor(options){
         let defaultOptions = {
             element: '',
@@ -12,8 +12,8 @@ class Calender{
         this.options = Object.assign({},defaultOptions,options)
         this.currentDate = new Date()
         // this.generateNextMonth()
-        this.generateWeekdays()
-        this.generateCalender()
+       // this.generateWeekdays()
+        this.generatecalendar()
         
     }
     checkOptions(){
@@ -32,6 +32,19 @@ class Calender{
         let ol = dom.create('<ol class="weekdays"></ol>',li)
         this.options.element.appendChild(ol)
         
+    }
+    nextMonth(){
+        this.currentDate = new Date(this.currentDate.getFullYear(),this.currentDate.getMonth()+1,1)
+        this.generatecalendar()
+    }
+    previousMonth(){
+        this.currentDate = new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),0)
+        this.generatecalendar()
+
+    }
+    resetMonth(){
+        this.currentDate = new Date()
+        this.generatecalendar()
     }
     generateCurrentMonth(){
         // 产生当前月份的所有天数 
@@ -71,15 +84,18 @@ class Calender{
         // 产生目前页面所有天数
         let days = this.generatePreviousMonth().concat(this.generateCurrentMonth())
         .concat(this.generateNextMonth())
-        console.log(days)
         return dom.create('<ol class="days"></ol>',days)
         
     }
-    generateCalender(){
+    generatecalendar(){
+        this.options.element.innerHTML = ''
+        this.generateWeekdays()
         let ol = this.generateDays()
+        //this.options.element.remove(ol)
+        
         this.options.element.appendChild(ol)
         this.options.day.textContent = this.options.output(this.currentDate)
-        // 产生日历ol.days ol.weekdays 并append带div.calender中
+        // 产生日历ol.days ol.weekdays 并append带div.calendar中
     }
     
 }

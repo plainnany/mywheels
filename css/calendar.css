@@ -7,37 +7,37 @@
     padding: 0 10em;
     align-items: center;
 }
-.calender{
+.calendar{
     
 } 
-.calender .weekdays,
-.calender .days{
+.calendar .weekdays,
+.calendar .days{
     display: flex;
     text-align: right;
     flex-wrap: wrap;
     
 }
-.calender .days{
+.calendar .days{
     border-top: 1px solid #ccc;
     border-left: 1px solid #ccc;
 }
-.calender .weekdays li{
+.calendar .weekdays li{
     width: 14.28%;
     line-height: 40px;
 }
-.calender .days li{
+.calendar .days li{
     width: 14.28%;
     padding: 2.5em 0.3em;
     border-right: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
 }
-.calender .days li.previousMonth{
+.calendar .days li.previousMonth{
     background: #fafafa;
     color: #ccc;
 }
-.calender .days li.nextMonth{
+.calendar .days li.nextMonth{
     background: #f5f5f5;
 }
-.calender .days li.currentMonth.now{
+.calendar .days li.currentMonth.now{
     color: red;
 }

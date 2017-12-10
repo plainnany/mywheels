@@ -6,19 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/calender.css">
+    <link rel="stylesheet" href="../css/calendar.css">
 </head>
 <body>
     <div class="page">
         <nav>
             <h1 class="date"></h1>
             <div class="controls">
-                <button id="previousDay">&lt;</button>
+                <button id="previousMonth">&lt;</button>
                 <button id="today">今天</button>
-                <button id="nextDay">&gt;</button>
+                <button id="nextMonth">&gt;</button>
             </div>
         </nav>
-        <div class="calender">
+        <div class="calendar">
             <!-- <ol class="weekdays">
                 <li>周一</li>
                 <li>周二</li>
@@ -32,13 +32,23 @@
         </div>
     </div>
     <script src="../js/dom.js"></script>
-    <script src="../js/calender.js"></script>
+    <script src="../js/calendar.js"></script>
     <script>
-        new Calender({
-            element: document.querySelector('.calender'),
+        let calendar = new Calendar({
+            element: document.querySelector('.calendar'),
             day: document.querySelector('.date')
         })
+        nextMonth.onclick = function(){
+            calendar.nextMonth()
+        }
+        previousMonth.onclick = function(){
+            calendar.previousMonth()
+        }
+        today.onclick = function(){
+            calendar.resetMonth()
+        }
         
+
     </script>
 </body>
 </html>
