@@ -11,7 +11,10 @@ class Calender{
         }
         this.options = Object.assign({},defaultOptions,options)
         this.currentDate = new Date()
+        // this.generateNextMonth()
         this.generateWeekdays()
+        this.generateCalender()
+        
     }
     checkOptions(){
         // 检查元素
@@ -32,23 +35,60 @@ class Calender{
     }
     generateCurrentMonth(){
         // 产生当前月份的所有天数 
-
+        // 获取当前月份最后一天的日期
+        let time = new Date(this.currentDate.getFullYear(),this.currentDate.getMonth() + 1,0)
+        let currentMonthLength = time.getDate()
+        
+        return  createArray({length: currentMonthLength}).map((value,index) => {
+             return dom.create(`<li class="currentMonth">${index+1}<li>`)
+        })
+        
     }
     generatePreviousMonth(){
         // 产生上个月的天数
+        // getDay() 方法根据本地时间，返回一个具体日期中一周的第几天，0 表示星期天。
+        let monthBeginning = new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),1)
+        let startPadding = monthBeginning.getDay() >= 1 
+        ? monthBeginning.getDay() - 1
+        : monthBeginning + 7 - 1
+        let previousMonthEnding =  new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),0)
+        return createArray({length: startPadding}).map((value,index) => {
+            return dom.create(`<li class="previousMonth">${previousMonthEnding.getDate()-index}</li>`)
+        }).reverse()
+
     }
     generateNextMonth(){
         // 产生下个月的天数
+        let monthEnding = new Date(this.currentDate.getFullYear(),this.currentDate.getMonth()+1,0)
+        let endPadding = monthEnding.getDay() >= 1 ? (7 - monthEnding.getDay()) : monthEnding.getDay()
+        let nextMonthBeginning = new Date(this.currentDate.getFullYear(),this.currentDate.getMonth()+1,1)
+        return createArray({length: endPadding}).map((value,index) => {
+            return dom.create(`<li class="nextMonth">${nextMonthBeginning.getDate() + index}</li>`)
+        })
+        
     }
     generateDays(){
         // 产生目前页面所有天数
+        let days = this.generatePreviousMonth().concat(this.generateCurrentMonth())
+        .concat(this.generateNextMonth())
+        console.log(days)
+        return dom.create('<ol class="days"></ol>',days)
+        
     }
     generateCalender(){
+        let ol = this.generateDays()
+        this.options.element.appendChild(ol)
+        this.options.day.textContent = this.options.output(this.currentDate)
         // 产生日历ol.days ol.weekdays 并append带div.calender中
     }
     
 }
-
-function createArray(){
-
+// 最好创建个数组，因为在涉及上一个月的日期需要颠倒一下数据，以及后续很多都会涉及对数组的一些操作
+// 创建一个array,长度为length，内容为fill
+function createArray({length,fill}){
+    let array = Array.apply(null,{length: length})
+    if(fill !== undefined){
+        array = array.map(() => { fill })
+    }
+    return array
 }
