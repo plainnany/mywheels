@@ -11,8 +11,7 @@ class Calendar{
         }
         this.options = Object.assign({},defaultOptions,options)
         this.currentDate = new Date()
-        // this.generateNextMonth()
-       // this.generateWeekdays()
+        this.checkOptions()
         this.generatecalendar()
         
     }
@@ -21,6 +20,7 @@ class Calendar{
         if(!this.options.element){
             throw new Error('element is required')
         }    
+        return this
     }
     generateWeekdays(){
         // 产生周一到周日 添加到ol.weekdays中
